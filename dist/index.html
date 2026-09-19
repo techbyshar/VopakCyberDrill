@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Facilitator led cybersecurity tabletop exercise for a maritime terminal.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Vopak Cyber Incident Tabletop</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a2373'/%3E%3Cpath d='M13 21h27l-5 8H8zm10 11h28l-5 8H18z' fill='%2300cfe1'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to exercise</a>
+
+  <header class="topbar">
+    <div class="brand-lockup">
+      <img src="assets/vopak-logo.png" alt="Vopak" class="brand-logo">
+      <div class="brand-divider" aria-hidden="true"></div>
+      <div>
+        <p class="eyebrow">Cybersecurity exercise</p>
+        <p class="product-name">Terminal Incident Tabletop</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-button" id="sourcesButton" type="button" aria-haspopup="dialog">
+        <span aria-hidden="true">⌁</span>
+        Sources
+      </button>
+      <button class="icon-button" id="helpButton" type="button" aria-haspopup="dialog">
+        <span aria-hidden="true">?</span>
+        How it works
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="setupView" class="setup-shell" aria-labelledby="setupTitle">
+      <div class="setup-copy">
+        <div class="status-row">
+          <span class="status-chip">Private exercise</span>
+          <span class="status-chip status-chip-light">90 to 120 minutes</span>
+        </div>
+        <p class="section-kicker">Facilitator led tabletop</p>
+        <h1 id="setupTitle">A cyber signal becomes an operational decision</h1>
+        <p class="setup-lead">A routine terminal workday shifts into a suspected IT and OT incident. Teams must detect, assess, escalate, report, continue operations safely, and recover with incomplete information.</p>
+
+        <div class="outcomes-grid" aria-label="Exercise outcomes">
+          <div>
+            <span class="outcome-number">01</span>
+            <p>Recognize credible cyber indicators</p>
+          </div>
+          <div>
+            <span class="outcome-number">02</span>
+            <p>Practice the incident response chain</p>
+          </div>
+          <div>
+            <span class="outcome-number">03</span>
+            <p>Test reporting and operational coordination</p>
+          </div>
+        </div>
+
+        <p class="source-note">Built from Vopak incident response guidance and the U.S. Coast Guard maritime cybersecurity rule. <button class="text-link" type="button" data-open-sources>View source map</button></p>
+      </div>
+
+      <form id="setupForm" class="setup-panel">
+        <div class="panel-heading">
+          <p class="section-kicker">Session setup</p>
+          <h2>Configure the room</h2>
+        </div>
+
+        <fieldset>
+          <legend>Play mode</legend>
+          <div class="segmented-control" role="radiogroup" aria-label="Number of teams">
+            <label>
+              <input type="radio" name="teamCount" value="1" checked>
+              <span>One team</span>
+            </label>
+            <label>
+              <input type="radio" name="teamCount" value="2">
+              <span>Two teams</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-grid">
+          <label class="field">
+            <span>Team 1 name</span>
+            <input id="teamOneName" type="text" maxlength="30" value="Harbor Team" required>
+          </label>
+          <label class="field" id="teamTwoField" hidden>
+            <span>Team 2 name</span>
+            <input id="teamTwoName" type="text" maxlength="30" value="Channel Team">
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Scenario</span>
+          <select id="scenarioSelect">
+            <option value="random" selected>Random rotation</option>
+            <option value="remote_access">Third party remote access</option>
+            <option value="ransomware">Ransomware and shared operations files</option>
+            <option value="data_integrity">Data integrity and vessel transfer</option>
+          </select>
+          <small>Random rotation avoids the most recently played scenario on this browser.</small>
+        </label>
+
+        <label class="field">
+          <span>Exercise duration</span>
+          <select id="durationSelect">
+            <option value="90">90 minutes</option>
+            <option value="105" selected>105 minutes</option>
+            <option value="120">120 minutes</option>
+          </select>
+        </label>
+
+        <div class="mission-config">
+          <label class="toggle-row">
+            <input id="fieldMissionToggle" type="checkbox" checked>
+            <span class="toggle-visual" aria-hidden="true"></span>
+            <span>
+              <strong>Include field mission</strong>
+              <small>Teams locate a prepared role player and return with a code.</small>
+            </span>
+          </label>
+          <div id="missionFields" class="mission-fields">
+            <label class="field">
+              <span>Role to locate</span>
+              <input id="missionRole" type="text" maxlength="60" value="Facility Security Officer or designated delegate">
+            </label>
+            <label class="field compact-field">
+              <span>Answer code</span>
+              <input id="missionCode" type="text" maxlength="20" value="HARBOR">
+            </label>
+          </div>
+        </div>
+
+        <div class="exercise-notice">
+          <strong>Simulation only</strong>
+          <p>Do not create real incidents, contact authorities, interrupt operations, or enter restricted areas during this exercise.</p>
+        </div>
+
+        <button class="primary-button" type="submit">
+          Start exercise
+          <span aria-hidden="true">›</span>
+        </button>
+      </form>
+    </section>
+
+    <section id="exerciseView" class="exercise-shell" hidden aria-label="Active tabletop exercise">
+      <aside class="stage-rail" aria-label="Exercise stages">
+        <div class="rail-header">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Exercise live</span>
+        </div>
+        <nav id="stageNav"></nav>
+        <div class="rail-footer">
+          <button id="restartButton" class="quiet-button" type="button">Restart session</button>
+        </div>
+      </aside>
+
+      <div class="exercise-main">
+        <div class="control-strip">
+          <div class="timer-block">
+            <span class="timer-label">Session clock</span>
+            <strong id="sessionTimer">01:45:00</strong>
+          </div>
+          <button id="timerToggle" class="timer-button" type="button">Pause</button>
+          <div class="mode-block">
+            <span>Mode</span>
+            <strong id="modeLabel">One team</strong>
+          </div>
+          <div class="scenario-block">
+            <span>Scenario</span>
+            <strong id="scenarioLabel">Rotating scenario</strong>
+          </div>
+          <div class="progress-block">
+            <span>Progress</span>
+            <strong id="progressLabel">1 of 7</strong>
+          </div>
+        </div>
+
+        <div class="exercise-content">
+          <article class="inject-panel" aria-live="polite">
+            <div class="inject-meta">
+              <span id="phaseLabel">Briefing</span>
+              <span id="phaseTime">10 minutes</span>
+            </div>
+            <h1 id="phaseTitle">Terminal operations are beginning</h1>
+            <p id="phaseSummary" class="phase-summary"></p>
+            <div id="evidenceArea" class="evidence-area"></div>
+            <div id="missionArea"></div>
+          </article>
+
+          <aside class="response-panel">
+            <div class="team-switcher" id="teamSwitcher" role="tablist" aria-label="Team responses"></div>
+            <div id="responseContent"></div>
+          </aside>
+        </div>
+
+        <div class="facilitator-bar">
+          <div>
+            <span class="facilitator-label">Facilitator control</span>
+            <p id="facilitatorPrompt">Read the opening brief, assign roles, and confirm that all actions remain simulated.</p>
+          </div>
+          <div class="facilitator-actions">
+            <button id="revealButton" class="secondary-button" type="button" disabled>Reveal discussion guide</button>
+            <button id="nextButton" class="primary-button compact" type="button">Begin first inject <span aria-hidden="true">›</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultsView" class="results-shell" hidden aria-labelledby="resultsTitle">
+      <div class="results-header">
+        <div>
+          <p class="section-kicker">Exercise complete</p>
+          <h1 id="resultsTitle">After action review</h1>
+          <p id="resultsScenario" class="results-scenario"></p>
+          <p>Use the scores as discussion prompts. The strongest evidence comes from the decisions, timing, communication, and corrective actions captured during the session.</p>
+        </div>
+        <img src="assets/vopak-logo.png" alt="Vopak" class="results-logo">
+      </div>
+
+      <div id="scoreSummary" class="score-summary"></div>
+      <div id="categoryResults" class="category-results"></div>
+
+      <section class="aar-section">
+        <div>
+          <p class="section-kicker">Facilitator closeout</p>
+          <h2>Capture what changes next</h2>
+        </div>
+        <div class="aar-grid">
+          <label class="field">
+            <span>What worked well?</span>
+            <textarea id="workedWell" rows="4" placeholder="Roles, communication, decisions, or tools that helped"></textarea>
+          </label>
+          <label class="field">
+            <span>Where did the response slow down?</span>
+            <textarea id="slowedDown" rows="4" placeholder="Unclear authority, missing information, contact gaps, or process friction"></textarea>
+          </label>
+          <label class="field full-span">
+            <span>Corrective actions</span>
+            <textarea id="correctiveActions" rows="4" placeholder="Action, owner, and target date"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <div class="results-actions">
+        <button id="printReportButton" class="primary-button" type="button">Print or save report</button>
+        <button id="downloadDataButton" class="secondary-button" type="button">Download exercise record</button>
+        <button id="newSessionButton" class="quiet-button" type="button">Start a new session</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="sourcesDialog" class="modal sources-modal">
+    <form method="dialog" class="modal-shell">
+      <div class="modal-header">
+        <div>
+          <p class="section-kicker">Source map</p>
+          <h2>Requirements and internal guidance</h2>
+        </div>
+        <button class="close-button" value="close" aria-label="Close sources">×</button>
+      </div>
+      <div class="source-list">
+        <a href="https://www.ecfr.gov/current/title-33/chapter-I/subchapter-A/part-6/subpart-6.16/section-6.16-1" target="_blank" rel="noreferrer">
+          <span class="source-type">Federal regulation</span>
+          <strong>33 CFR 6.16-1</strong>
+          <p>Immediate reporting of actual or threatened cyber incidents involving a vessel, harbor, port, or waterfront facility.</p>
+        </a>
+        <a href="https://www.ecfr.gov/current/title-33/chapter-I/subchapter-H/part-101/subpart-F/section-101.635" target="_blank" rel="noreferrer">
+          <span class="source-type">Federal regulation</span>
+          <strong>33 CFR 101.635</strong>
+          <p>Cybersecurity drills and exercises, including communication, coordination, resources, response, and active CySO participation.</p>
+        </a>
+        <a href="https://www.ecfr.gov/current/title-33/chapter-I/subchapter-H/part-101/subpart-F/section-101.650" target="_blank" rel="noreferrer">
+          <span class="source-type">Federal regulation</span>
+          <strong>33 CFR 101.650</strong>
+          <p>Cybersecurity measures covering resilience, incident response, reporting, backups, segmentation, supply chain, and physical security.</p>
+        </a>
+        <a href="https://www.federalregister.gov/documents/2025/01/17/2025-00708/cybersecurity-in-the-marine-transportation-system" target="_blank" rel="noreferrer">
+          <span class="source-type">U.S. Coast Guard</span>
+          <strong>Cybersecurity in the Marine Transportation System final rule</strong>
+          <p>Final rule published January 17, 2025, effective July 16, 2025.</p>
+        </a>
+        <a href="https://www.vopak.com/" target="_blank" rel="noreferrer">
+          <span class="source-type">Vopak context</span>
+          <strong>Royal Vopak</strong>
+          <p>Vopak provides infrastructure at ports for the safe, reliable, and efficient storage of essential products.</p>
+        </a>
+        <a href="https://www.vopak.com/our-terminals" target="_blank" rel="noreferrer">
+          <span class="source-type">Vopak context</span>
+          <strong>Vopak terminal overview</strong>
+          <p>Terminal infrastructure context used to ground the fictional scenario.</p>
+        </a>
+        <button type="button" class="internal-source" data-source-detail="hoxhunt">
+          <span class="source-type">Vopak operating practice</span>
+          <strong>Hoxhunt phishing reporting</strong>
+          <p>Use the Hoxhunt button for suspected phishing. Escalate beyond the email report when compromise or IT or OT impact is suspected.</p>
+        </button>
+        <button type="button" class="internal-source" data-source-detail="irbc">
+          <span class="source-type">Vopak internal</span>
+          <strong>GIT CIS Guideline, Incident Response and Business Continuity</strong>
+          <p>Section 3 and Appendix A. Assess the Situation, Begin the Escalation, and Continue the Operation.</p>
+        </button>
+        <button type="button" class="internal-source" data-source-detail="otpolicy">
+          <span class="source-type">Vopak internal</span>
+          <strong>Operational Technology Security Policy v1.2</strong>
+          <p>Section 5.2, Incident Management and Communication.</p>
+        </button>
+        <button type="button" class="internal-source" data-source-detail="classification">
+          <span class="source-type">Vopak internal</span>
+          <strong>Incident Classification, Reporting and Investigation Standard v8</strong>
+          <p>Sections 7.1 and 7.2 covering initial notification information, Enablon records, and potential severity assessment.</p>
+        </button>
+        <button type="button" class="internal-source" data-source-detail="brand">
+          <span class="source-type">Vopak internal</span>
+          <strong>Vopak Brand Guidelines v3.0</strong>
+          <p>Logo use, Deep Blue, Cyan, typography, and digital presentation guidance.</p>
+        </button>
+      </div>
+      <div id="sourceDetail" class="source-detail" hidden></div>
+      <p class="modal-footnote">Internal documents are not bundled with this portable website. Open the current controlled copy in the Vopak document repository before relying on a requirement.</p>
+    </form>
+  </dialog>
+
+  <dialog id="helpDialog" class="modal">
+    <form method="dialog" class="modal-shell compact-modal">
+      <div class="modal-header">
+        <div>
+          <p class="section-kicker">Facilitator guide</p>
+          <h2>How to run the exercise</h2>
+        </div>
+        <button class="close-button" value="close" aria-label="Close guide">×</button>
+      </div>
+      <ol class="instruction-list">
+        <li><strong>Prepare the room.</strong> Assign participant roles and brief any field mission role player before starting.</li>
+        <li><strong>Release one inject at a time.</strong> Teams discuss privately and submit one response with their assumptions.</li>
+        <li><strong>Do not coach the answer.</strong> Ask what information the team used, what remains unknown, and who owns the decision.</li>
+        <li><strong>Reveal the guide after submissions.</strong> Compare the decisions with the internal process and cited requirements.</li>
+        <li><strong>Close with corrective actions.</strong> Record owners and dates. Keep the exported record with the exercise documentation.</li>
+      </ol>
+      <div class="exercise-notice">
+        <strong>Compliance note</strong>
+        <p>This tool supports an exercise. It does not replace the approved Facility Security Plan, Cybersecurity Plan, Cyber Incident Response Plan, or direction from the cognizant Captain of the Port.</p>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
